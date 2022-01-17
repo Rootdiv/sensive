@@ -114,3 +114,19 @@ function band_digital_widgets_init() {
   ));
 }
 add_action('widgets_init', 'band_digital_widgets_init');
+
+function custom_nav_menu_css_class($classes) {
+  //Добавляем к списку классов свой класс nav-item
+  if (in_array('current-menu-item', $classes) ){
+    $classes[] = 'active ';
+  }
+  $classes[] = 'nav-item';
+  return $classes;
+}
+add_filter('nav_menu_css_class','custom_nav_menu_css_class', 10, 1);
+
+function custom_nav_menu_link_attributes($attr) {
+  $attr['class'] = 'nav-link';
+  return $attr;
+}
+add_filter('nav_menu_link_attributes', 'custom_nav_menu_link_attributes', 10, 1);

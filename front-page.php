@@ -6,8 +6,7 @@
         <div class="container">
           <div class="hero-banner">
             <div class="hero-banner__content">
-              <h3>Tours & Travels</h3>
-              <h1>Amazing Places on earth</h1>
+              <?php the_content();?>
               <h4></h4>
             </div>
           </div>

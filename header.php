@@ -14,20 +14,22 @@
         <nav class="navbar navbar-expand-lg navbar-light">
           <div class="container box_1620">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <?php $logo_img = '';
+            <?php $logo_img = ''; $home = '';
+            if(!is_front_page()){
+              $home = ' href="' . home_url('/') . '"';
+            }
             if ($custom_logo_id = get_theme_mod('custom_logo')) {
               $logo_img = wp_get_attachment_image($custom_logo_id, 'full', false, array(
                 'alt' => get_bloginfo('name'),
               ));
             }
             if (has_custom_logo()) {
-              echo '<a href="' . home_url('/') . '" class="navbar-brand logo_h">' . $logo_img . '</a>';
+              echo '<a' . $home . ' class="navbar-brand logo_h">' . $logo_img . '</a>';
             } else {
-              echo '<a class="navbar-brand logo_h" href="' . home_url('/') . '">
+              echo '<a' . $home . ' class="navbar-brand logo_h">
                 <span>' . get_bloginfo('name') . '</span>
               </a>';
             }?>
-            <!-- <a class="navbar-brand logo_h" href="index.html"><img src="<?=get_template_directory_uri();?>/img/logo.png" alt="" /></a> -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="icon-bar"></span>
@@ -36,19 +38,14 @@
             </button>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-              <ul class="nav navbar-nav menu_nav justify-content-center">
-                <li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="tours.html">Tours</a></li>
-                <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                <!-- <li class="nav-item submenu dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                  aria-expanded="false">Pages</a>
-                <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="blog-details.html">Blog Details</a></li>
-                </ul>
-              </li> -->
-                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-              </ul>
+              <?php wp_nav_menu([
+              'theme_location'  => 'header',
+              'container'       => false,
+              'menu_class'      => 'nav navbar-nav menu_nav justify-content-center',
+              'menu_id'         => false,
+              'echo'            => true,
+              'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+            ]);?>
               <ul class="nav navbar-nav navbar-right navbar-social">
                 <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                 <li><a href="#"><i class="fab fa-twitter"></i></a></li>
