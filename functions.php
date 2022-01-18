@@ -20,6 +20,9 @@ if (!function_exists('sensive_setup')) {
     ));
     //Динамический <title>
     add_theme_support('title-tag');
+    //Добавление миниатюр для постов и страниц
+    add_theme_support('post-thumbnails');
+    set_post_thumbnail_size(730, 340, true);
   }
 }
 add_action('after_setup_theme', 'sensive_setup');
@@ -68,8 +71,8 @@ function delete_intermediate_image_sizes($sizes) {
 //Удаляем H2 из шаблона пагинации
 function my_navigation_template($template, $class) {
   return '
-  <nav class="navigation %1$s" role="navigation">
-  <div class="nav-links d-flex flex-wrap justify-content-center">%3$s</div>
+  <nav class="navigation blog-pagination justify-content-center d-flex" role="navigation">
+  <ul class="%1$s">%3$s</ul>
   </nav>
 	';
 }

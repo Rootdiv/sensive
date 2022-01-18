@@ -4,9 +4,13 @@
       <div class="container">
         <div class="hero-banner hero-banner--sm">
           <div class="hero-banner__content">
-            <h1><?php
-              printf('Поиск: %s', get_search_query());
-            ?></h1>
+            <h1>Blog Page</h1>
+            <nav aria-label="breadcrumb" class="banner-breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Blog Page</li>
+              </ol>
+            </nav>
           </div>
         </div>
       </div>
@@ -14,10 +18,10 @@
     <!--================ Hero sm Banner end =================-->
 
     <!--================ Start Blog Post Area =================-->
-    <section class="blog-post-area section-margin">
+    <section class="blog-post-area section-margin mt-4">
       <div class="container">
         <div class="row">
-        <div class="col-lg-8">
+          <div class="col-lg-8">
             <?php if ( have_posts() ) : while ( have_posts() ) : the_post();?>
             <div class="single-recent-blog-post">
               <div class="thumb">
@@ -118,7 +122,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="single-sidebar-widget tag_cloud_widget">
                 <h4 class="single-sidebar-widget__title">Tags</h4>
                 <ul class="list">

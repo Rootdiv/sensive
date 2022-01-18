@@ -114,59 +114,7 @@
             <!-- Start Blog Post Siddebar -->
             <div class="col-lg-4 sidebar-widgets">
               <div class="widget-wrap">
-                <div class="single-sidebar-widget newsletter-widget">
-                  <form action="#">
-                    <div class="d-flex flex-row">
-                      <input class="form-control" name="q" placeholder="Search" required="" type="text" value="" />
-                      <button class="click-btn btn btn-default bbtns"><i class="ti-search"></i></button>
-                    </div>
-                  </form>
-                </div>
-                <!-- <div class="single-sidebar-widget newsletter-widget">
-                  <h4 class="single-sidebar-widget__title">Newsletter</h4>
-                  <div class="form-group mt-30">
-                    <div class="col-autos">
-                      <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email" onfocus="this.placeholder = ''"
-                        onblur="this.placeholder = 'Enter email'">
-                    </div>
-                  </div>
-                  <button class="bbtns d-block mt-20 w-100">Subcribe</button>
-                </div> -->
-                <div class="single-sidebar-widget post-category-widget">
-                  <h4 class="single-sidebar-widget__title">Category</h4>
-                  <ul class="cat-list mt-20">
-                    <li>
-                      <a href="archive.html" class="d-flex justify-content-between">
-                        <p>Technology</p>
-                        <p>(03)</p>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="archive.html" class="d-flex justify-content-between">
-                        <p>Software</p>
-                        <p>(09)</p>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="archive.html" class="d-flex justify-content-between">
-                        <p>Lifestyle</p>
-                        <p>(12)</p>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="archive.html" class="d-flex justify-content-between">
-                        <p>Shopping</p>
-                        <p>(02)</p>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="archive.html" class="d-flex justify-content-between">
-                        <p>Food</p>
-                        <p>(10)</p>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                <?php if (!dynamic_sidebar('sidebar-blog')) : dynamic_sidebar('sidebar-blog'); endif; ?>
                 <div class="single-sidebar-widget popular-post-widget">
                   <h4 class="single-sidebar-widget__title">Popular Post</h4>
                   <div class="popular-post-list">
