@@ -50,21 +50,10 @@
           </div>
           <div class="col-lg-2 col-md-6 col-sm-6">
             <div class="single-footer-widget">
-              <h6>Follow Us</h6>
-              <p>Let us be social</p>
+              <h6>Следите за нами</h6>
+              <p>Давайте будем социальными</p>
               <div class="footer-social d-flex align-items-center">
-                <a href="#">
-                  <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#">
-                  <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#">
-                  <i class="fab fa-dribbble"></i>
-                </a>
-                <a href="#">
-                  <i class="fab fa-behance"></i>
-                </a>
+                <?php if (!dynamic_sidebar('social')) : dynamic_sidebar('social'); endif; ?>
               </div>
             </div>
           </div>

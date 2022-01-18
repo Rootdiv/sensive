@@ -42,7 +42,7 @@
     }
 
     @media (min-width: 991px) {
-      min-width: 95px;
+      min-width: 128px;
       float: right;
     }
 
@@ -59,9 +59,8 @@
         margin-right: 0;
       }
 
-      a:hover i,
-      span {
-        color: $primary-color;
+      a:hover {
+        color: $primary-color !important;
       }
     }
   }

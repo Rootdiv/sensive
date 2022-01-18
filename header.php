@@ -46,11 +46,9 @@
               'echo'            => true,
               'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
             ]);?>
+
               <ul class="nav navbar-nav navbar-right navbar-social">
-                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
-                <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                <?php if (!dynamic_sidebar('social')) : dynamic_sidebar('social'); endif; ?>
               </ul>
             </div>
           </div>

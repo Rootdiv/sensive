@@ -176,6 +176,7 @@
             <!-- Start Blog Post Siddebar -->
             <div class="col-lg-4 sidebar-widgets">
               <div class="widget-wrap">
+                <?php if (!dynamic_sidebar('sidebar-blog')) : dynamic_sidebar('sidebar-blog'); endif; ?>
                 <div class="single-sidebar-widget newsletter-widget">
                   <form action="#">
                     <div class="d-flex flex-row">

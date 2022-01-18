@@ -1,7 +1,6 @@
 <?php
 if (!function_exists('sensive_setup')) {
   function sensive_setup() {
-    load_theme_textdomain( 'sensive', get_template_directory() . '/languages' );
     add_theme_support('custom-logo', [
       'height' => 26,
       'width' => 122,
@@ -97,7 +96,7 @@ add_action( 'phpmailer_init', 'my_phpmailer_config' );
 //Регистрация меню
 function sensive_menus() {
   $locations = array(
-    'header' => __('Header Menu', 'sensive'),
+    'header' => 'Меню заголовка',
   );
   register_nav_menus($locations);
 }
@@ -105,12 +104,24 @@ add_action('init', 'sensive_menus');
 
 function band_digital_widgets_init() {
   register_sidebar(array(
-    'name'          => __('Blog sidebar', 'sensive'),
+    'name'          => 'Сайдбар блога',
     'id'            => 'sidebar-blog',
-    'before_widget' => '<section id="%1$s" class="col-lg-4 sidebar-widgets %2$s">',
+    'before_widget' => '<section id="%1$s" class="single-sidebar-widget %2$s">',
     'after_widget'  => '</section>',
     'before_title'  => '<h4 class="single-sidebar-widget__title">',
     'after_title'   => '</h4>'
+  ));
+  register_sidebar(array(
+    'name'          => 'Соцсети',
+    'id'            => 'social',
+    'before_widget' => '<div id="%1$s" class="%2$s">',
+    'after_widget'  => '</div>',
+  ));
+  register_sidebar(array(
+    'name'          => 'Сайдбар в подвале',
+    'id'            => 'footer',
+    'before_widget' => '<div id="%1$s" class="%2$s">',
+    'after_widget'  => '</div>',
   ));
 }
 add_action('widgets_init', 'band_digital_widgets_init');
