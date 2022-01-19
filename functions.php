@@ -144,3 +144,89 @@ function custom_nav_menu_link_attributes($attr) {
   return $attr;
 }
 add_filter('nav_menu_link_attributes', 'custom_nav_menu_link_attributes', 10, 1);
+
+/* Функция для вывода постов по количеству комментариев
+--------------------------------------------------------
+Параметры передаваемые функции (в скобках указано дефолтное значение):
+post_num (5) = количество ссылок
+format ('') = {date:j.M.Y} - {a}{title}{/a} ({comments})
+$days (0) = за последние n дней. Пример: $days=30 выведет посты за последние 30 дней. Или указиваем год за который нужно вывести комментарии. Пример:2009
+cache ('') = включить кеш (по умолчанию выключен), указываем 1, чтобы включить
+$post_type ('post') = тип записей
+---
+Вызываем функцию примерно так:
+<?php echo most_commented_posts(10, '{a}{title}{/a} <sup>{comments}</sup>', 0, 31); ?>
+ */
+function most_commented_posts($post_num = 10, $format = '', $days = 0, $cache = '', $post_type = 'post') {
+  global $wpdb;
+
+  if ($cache) {
+    $key = (string) md5($post_num . $format . $days . $post_type);
+    if ($cache_out = wp_cache_get($key, __FUNCTION__)) {
+      return $cache_out;
+    }
+  }
+
+  if ($days) {
+    $AND_days = "AND post_date > CURDATE() - INTERVAL $days DAY";
+    if (strlen($days) == 4) {
+      $AND_days = "AND YEAR(post_date)=" . trim($days);
+    }
+
+  }
+  $sql = "SELECT ID, post_title, post_date, comment_count, guid
+		FROM $wpdb->posts p
+		WHERE post_status = 'publish' AND post_type = '$post_type' $AND_days
+		ORDER BY comment_count DESC " .
+    ($post_num ? " LIMIT $post_num" : '');
+  $res = $wpdb->get_results($sql);
+
+  if (!$res) {
+    return false;
+  }
+
+  // Формировка вывода
+  if ($format) {
+    preg_match('!{date:(.*?)}!', $format, $date_m);
+  }
+
+  foreach ($res as $pst) {
+    if ($pst->comment_count == 0) {
+      continue;
+    }
+
+    $x == 'li1' ? $x = 'li2' : $x = 'li1';
+    $title = esc_attr($pst->post_title);
+    $a = "<a href='" . get_permalink($pst->ID) . "' title='$title'>";
+
+    $Sformat = "$a$title ($pst->comment_count)</a>";
+    if ($format) {
+      $replacement = array(
+        '{title}' => $title,
+        '{a}' => $a,
+        '{/a}' => '</a>',
+        '{comments}' => $pst->comment_count,
+      );
+      if ($date_m) {
+        $replacement[$date_m[0]] = apply_filters('the_time', mysql2date($date_m[1], $pst->post_date));
+      }
+
+      $Sformat = strtr($format, $replacement);
+    }
+    $out .= "<li class='$x'>$Sformat</li>";
+  }
+  if (!$out) {
+    return "<li>Нет записей с комментариями</li>";
+  }
+
+  if ($cache) {
+    wp_cache_add($key, $out, __FUNCTION__);
+  }
+
+  return $out;
+}
+
+add_shortcode( 'most_comment', 'most_comment_shortcode' );
+function most_comment_shortcode(){
+	return most_commented_posts(5, '{date:j.M.Y} {a}{title}{/a}', 0, 31);
+}

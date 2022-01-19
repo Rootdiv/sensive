@@ -39,7 +39,7 @@ jQuery(function($) {
     }
   }
   navbarFixed();
-
+  const PATH = './wp-content/themes/sensive/img/home'
   if ($('.blog-slider').length) {
     $('.blog-slider').owlCarousel({
       loop: true,
@@ -51,8 +51,8 @@ jQuery(function($) {
       dots: false,
       responsiveClass: true,
       navText: [
-        '<div class="blog-slider__leftArrow"><img src="./wp-content/themes/sensive/img/home/left-arrow.png"></div>',
-        '<div class="blog-slider__rightArrow"><img src="./wp-content/themes/sensive/img/home/right-arrow.png"></div>',
+        '<div class="blog-slider__leftArrow"><img src="' + PATH + '/left-arrow.png"></div>',
+        '<div class="blog-slider__rightArrow"><img src="' + PATH + '/right-arrow.png"></div>',
       ],
       responsive: {
         0: {
