@@ -26,7 +26,12 @@
             <i class="ti-notepad"></i><?php the_time('j F Y');?>
           </span>
         </li>
-        <li><a href="#"><i class="ti-themify-favicon"></i>2 Comments</a></li>
+        <li>
+          <a href="<?php comments_link();?>">
+            <i class="ti-themify-favicon"></i>
+            <?php plural_form(get_comments_number(), array('Комментарий', 'Комментария', 'Комментариев'));?>
+          </a>
+        </li>
       </ul>
     </div>
     <div class="details mt-20">
