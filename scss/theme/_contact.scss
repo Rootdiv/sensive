@@ -1,69 +1,67 @@
-
-
-
 /*=================== contact form start ====================*/
-.form-contact{
+.form-contact {
 
-  .form-group{
+  .form-group {
     margin-bottom: 10px;
 
-    label{
+    label {
       font-size: 14px;
       color: $primary-color;
     }
   }
 
-  .form-control{
+  .form-control {
     border-radius: 0;
     height: 40px;
     padding-left: 18px;
     border-color: #EEEEEE;
     background: transparent;
 
-    &:focus{
+    &:focus {
       outline: 0;
       box-shadow: none;
     }
 
-    &::placeholder{
+    &::placeholder {
       font-size: 14px;
       color: #999999;
     }
   }
 
-  .different-control{
+  .different-control {
     height: 100% !important;
   }
 
-  // button{
-  //   border: 0;
-  // }
+  .button-contactForm {
+    cursor: pointer;
+  }
 }
 
-.contact-info{
+.contact-info {
 
-  &__icon{
+  &__icon {
     margin-right: 20px;
 
-    i,span{
+    i,
+    span {
       color: $primary-color;
       font-size: 20px;
     }
   }
 
-  .media-body{
+  .media-body {
 
-    h3{
+    h3 {
       font-size: 16px;
       margin-bottom: 0;
       font-weight: 600;
 
-      a{
+      a {
         color: $title-color;
       }
     }
 
-    p{
+    p {
       color: #797979;
     }
   }
