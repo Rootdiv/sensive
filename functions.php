@@ -148,16 +148,12 @@ add_filter('nav_menu_link_attributes', 'custom_nav_menu_link_attributes', 10, 1)
 /* Функция для вывода постов по количеству комментариев
 --------------------------------------------------------
 Параметры передаваемые функции (в скобках указано дефолтное значение):
-post_num (5) = количество ссылок
-format ('') = {date:j.M.Y} - {a}{title}{/a} ({comments})
-$days (0) = за последние n дней. Пример: $days=30 выведет посты за последние 30 дней. Или указиваем год за который нужно вывести комментарии. Пример:2009
+post_num (10) = количество ссылок
+format ('') = {date:j M Y} - формат вывода даты поста
+$days (5) = за последние n дней. Пример: $days=30 выведет посты за последние 30 дней или указываем год за который нужно вывести комментарии.
 cache ('') = включить кеш (по умолчанию выключен), указываем 1, чтобы включить
-$post_type ('post') = тип записей
----
-Вызываем функцию примерно так:
-<?php echo most_commented_posts(10, '{a}{title}{/a} <sup>{comments}</sup>', 0, 31); ?>
- */
-function most_commented_posts($post_num = 10, $format = '', $days = 0, $cache = '', $post_type = 'post') {
+*/
+function most_commented_posts($post_num = 10, $format, $days = 5, $cache = '', $post_type = 'post') {
   global $wpdb;
 
   if ($cache) {
@@ -174,7 +170,7 @@ function most_commented_posts($post_num = 10, $format = '', $days = 0, $cache = 
     }
 
   }
-  $sql = "SELECT ID, post_title, post_date, comment_count, guid
+  $sql = "SELECT ID, post_author, post_title, post_date, comment_count, guid
 		FROM $wpdb->posts p
 		WHERE post_status = 'publish' AND post_type = '$post_type' $AND_days
 		ORDER BY comment_count DESC " .
@@ -185,52 +181,59 @@ function most_commented_posts($post_num = 10, $format = '', $days = 0, $cache = 
     return false;
   }
 
-  // Формировка вывода
-  if ($format) {
-    preg_match('!{date:(.*?)}!', $format, $date_m);
-  }
+  //Формировка вывода
+  preg_match('!{date:(.*?)}!', $format, $date_m);
 
+  $out = '';
   foreach ($res as $pst) {
     if ($pst->comment_count == 0) {
       continue;
     }
-
-    $x == 'li1' ? $x = 'li2' : $x = 'li1';
+    $thumb_id = get_post_thumbnail_id($pst->ID); // прицепляем миниатюру
+    $thumb_url = wp_get_attachment_image_src($thumb_id, 'medium'); // прицепляем миниатюру
     $title = esc_attr($pst->post_title);
-    $a = "<a href='" . get_permalink($pst->ID) . "' title='$title'>";
-
-    $Sformat = "$a$title ($pst->comment_count)</a>";
-    if ($format) {
-      $replacement = array(
-        '{title}' => $title,
-        '{a}' => $a,
-        '{/a}' => '</a>',
-        '{comments}' => $pst->comment_count,
-      );
-      if ($date_m) {
-        $replacement[$date_m[0]] = apply_filters('the_time', mysql2date($date_m[1], $pst->post_date));
-      }
-
-      $Sformat = strtr($format, $replacement);
+    if ($date_m) {
+      $replacement[$date_m[0]] = apply_filters('the_time', mysql2date($date_m[1], $pst->post_date));
     }
-    $out .= "<li class='$x'>$Sformat</li>";
+
+    $date = strtr($format, $replacement);
+
+    $out .= '<div class="single-post-list">
+      <div class="thumb">
+        <img class="card-img rounded-0" src="'.$thumb_url[0].'" alt="">
+        <ul class="thumb-info">
+          <li>
+            <a href="' . get_the_permalink($pst->ID) . '">
+              ' . get_the_author_meta('display_name', $pst->post_author) . '
+            </a>
+          </li>
+          <li>
+            <a href="' . get_the_permalink($pst->ID) . '">' . $date . '</a>
+          </li>
+        </ul>
+      </div>
+      <div class="details mt-20">
+        <a href="' . get_the_permalink($pst->ID) . '">
+          <h6> ' . $title . ' </h6>
+        </a>
+      </div>
+    </div>';
   }
   if (!$out) {
-    return "<li>Нет записей с комментариями</li>";
+    return "<div>Нет записей с комментариями</div>";
   }
 
   if ($cache) {
     wp_cache_add($key, $out, __FUNCTION__);
   }
 
-  return $out;
+  return '<div class="popular-post-list">' . $out . '</div>';
 }
 
 add_shortcode( 'most_comment', 'most_comment_shortcode' );
 function most_comment_shortcode(){
-	return most_commented_posts(5, '{date:j.M.Y} {a}{title}{/a}', 0, 31);
+	return most_commented_posts(5, '{date:j M}', 10);
 }
-
 
 function move_field_to_bottom($fields) {
   $comment_field = $fields['comment'];
