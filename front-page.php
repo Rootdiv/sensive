@@ -19,6 +19,55 @@
       <section>
         <div class="container">
           <div class="owl-carousel owl-theme blog-slider">
+            <?php
+            global $post;
+
+            $query = new WP_Query([
+              'posts_per_page' => 5,
+              'post_type' => 'tour',
+              'order' => 'ASC'
+            ]);
+
+            if ($query->have_posts()) {
+              while ($query->have_posts()) {
+                $query->the_post();
+                ?>
+                <div class="card blog__slide text-center">
+                  <div class="blog__slide__img">
+                  <?php the_post_thumbnail('post-thumbnail', ['class' => 'card-img rounded-0']);?>
+                  </div>
+                  <div class="blog__slide__content">
+                    <a href="<?=get_the_permalink();?>"><?php the_title();?></a>
+                    <p><?=human_time_diff(get_the_time('U'), current_time('timestamp')) . ' назад'; ?></p>
+                  </div>
+                </div>
+                <?php
+              }
+            } else {
+              ?>
+              <p>Записей пока нет</p>
+              <?php
+            }
+            wp_reset_postdata(); // Сбрасываем $post
+            ?>
+            <!-- <div class="card blog__slide text-center">
+              <div class="blog__slide__img">
+                <img class="card-img rounded-0" src="<?=get_template_directory_uri();?>/img/blog/blog-slider/blog-slide2.png" alt="" />
+              </div>
+              <div class="blog__slide__content">
+                <h3><a href="#">New york fashion week's continued the evolution</a></h3>
+                <p>2 days ago</p>
+              </div>
+            </div>
+            <div class="card blog__slide text-center">
+              <div class="blog__slide__img">
+                <img class="card-img rounded-0" src="<?=get_template_directory_uri();?>/img/blog/blog-slider/blog-slide3.png" alt="" />
+              </div>
+              <div class="blog__slide__content">
+                <h3><a href="#">New york fashion week's continued the evolution</a></h3>
+                <p>2 days ago</p>
+              </div>
+            </div>
             <div class="card blog__slide text-center">
               <div class="blog__slide__img">
                 <img class="card-img rounded-0" src="<?=get_template_directory_uri();?>/img/blog/blog-slider/blog-slide1.png" alt="" />
@@ -45,34 +94,7 @@
                 <h3><a href="#">New york fashion week's continued the evolution</a></h3>
                 <p>2 days ago</p>
               </div>
-            </div>
-            <div class="card blog__slide text-center">
-              <div class="blog__slide__img">
-                <img class="card-img rounded-0" src="<?=get_template_directory_uri();?>/img/blog/blog-slider/blog-slide1.png" alt="" />
-              </div>
-              <div class="blog__slide__content">
-                <h3><a href="#">New york fashion week's continued the evolution</a></h3>
-                <p>2 days ago</p>
-              </div>
-            </div>
-            <div class="card blog__slide text-center">
-              <div class="blog__slide__img">
-                <img class="card-img rounded-0" src="<?=get_template_directory_uri();?>/img/blog/blog-slider/blog-slide2.png" alt="" />
-              </div>
-              <div class="blog__slide__content">
-                <h3><a href="#">New york fashion week's continued the evolution</a></h3>
-                <p>2 days ago</p>
-              </div>
-            </div>
-            <div class="card blog__slide text-center">
-              <div class="blog__slide__img">
-                <img class="card-img rounded-0" src="<?=get_template_directory_uri();?>/img/blog/blog-slider/blog-slide3.png" alt="" />
-              </div>
-              <div class="blog__slide__content">
-                <h3><a href="#">New york fashion week's continued the evolution</a></h3>
-                <p>2 days ago</p>
-              </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </section>

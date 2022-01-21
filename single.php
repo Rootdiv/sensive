@@ -37,7 +37,7 @@
                 <div class="media">
                   <div class="media-body">
                     <h5><?php the_author();?></h5>
-                    <p><?php the_time('j M Y H:i');?>m</p>
+                    <p><?php the_time('j M Y H:i');?></p>
                   </div>
                   <div class="d-flex">
                     <?=get_avatar($comment, 42);?>

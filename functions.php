@@ -149,11 +149,11 @@ add_filter('nav_menu_link_attributes', 'custom_nav_menu_link_attributes', 10, 1)
 --------------------------------------------------------
 Параметры передаваемые функции (в скобках указано дефолтное значение):
 post_num (10) = количество ссылок
-format ('') = {date:j M Y} - формат вывода даты поста
+format ('{date:j M Y}') = формат вывода даты поста
 $days (5) = за последние n дней. Пример: $days=30 выведет посты за последние 30 дней или указываем год за который нужно вывести комментарии.
 cache ('') = включить кеш (по умолчанию выключен), указываем 1, чтобы включить
 */
-function most_commented_posts($post_num = 10, $format, $days = 5, $cache = '', $post_type = 'post') {
+function most_commented_posts($post_num = 10, $format = '{date:j M Y}', $days = 5, $cache = '', $post_type = 'post') {
   global $wpdb;
 
   if ($cache) {
@@ -232,7 +232,7 @@ function most_commented_posts($post_num = 10, $format, $days = 5, $cache = '', $
 
 add_shortcode( 'most_comment', 'most_comment_shortcode' );
 function most_comment_shortcode(){
-	return most_commented_posts(5, '{date:j M}', 10);
+	return most_commented_posts(5, '{date:j M}', 2022);
 }
 
 function move_field_to_bottom($fields) {
@@ -715,4 +715,37 @@ class Bootstrap_Walker_Comment extends Walker {
 			</article><!-- .comment-body -->
 		<?php
   }
+}
+
+//Регистрируем тип записи - туры
+add_action('init', 'tour_custom_init');
+function tour_custom_init() {
+	register_post_type('tour', array(
+		'labels'             => array(
+			'name'               => 'Туры', // Основное название типа записи
+      'singular_name'      => 'Тур', // отдельное название записи типа tour
+			'add_new'            => 'Добавить новый',
+			'add_new_item'       => 'Добавить новый тур',
+			'edit_item'          => 'Редактировать тур',
+			'new_item'           => 'Новый тур',
+			'view_item'          => 'Посмотреть тур',
+			'search_items'       => 'Найти тур',
+			'not_found'          => 'Туров не найдено',
+			'not_found_in_trash' => 'В корзине туров не найдено',
+			'parent_item_colon'  => '',
+			'menu_name'          => 'Туры',
+    ),
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => true,
+		'capability_type'    => 'post',
+    'menu_icon'          => 'dashicons-admin-site',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => 5,
+		'supports'           => array('title','editor','author','thumbnail','excerpt', 'comments')
+	));
 }

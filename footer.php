@@ -51,7 +51,7 @@
           <div class="col-lg-2 col-md-6 col-sm-6">
             <div class="single-footer-widget">
               <h6>Следите за нами</h6>
-              <p>Давайте будем социальными</p>
+              <p>Наши соцсети:</p>
               <div class="footer-social d-flex align-items-center">
                 <?php if (!dynamic_sidebar('social')) : dynamic_sidebar('social'); endif; ?>
               </div>
