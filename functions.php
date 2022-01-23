@@ -231,8 +231,11 @@ function most_commented_posts($post_num = 10, $format = '{date:j M Y}', $days = 
 }
 
 add_shortcode( 'most_comment', 'most_comment_shortcode' );
-function most_comment_shortcode(){
-	return most_commented_posts(5, '{date:j M}', 2022);
+function most_comment_shortcode($attrs){
+  $attrs = shortcode_atts([
+		'posts' => 5
+	], $attrs);
+	return most_commented_posts($attrs['posts'], '{date:j M}', 2022);
 }
 
 function move_field_to_bottom($fields) {
