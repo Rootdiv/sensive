@@ -37,15 +37,9 @@ if (is_date()) {
         <div class="row">
           <div class="col-lg-8">
             <div class="row">
-              <?php global $post;
-
-              $query = new WP_Query([
-                'post_status' => 'publish'
-              ]);
-
-              if ($query->have_posts() ) {
-                while ($query->have_posts()) {
-                  $query->the_post();?>
+              <?php $args = array_merge($wp_query->query, array('post_type' => array('post')));
+              query_posts($args);
+              if (have_posts()) { while (have_posts()) { the_post(); ?>
                 <div class="col-md-6">
                   <div class="single-recent-blog-post card-view">
                     <div class="thumb">
@@ -81,7 +75,6 @@ if (is_date()) {
               } else { ?>
                 <p>Записей нет.</p>
               <?php } ?>
-              <?php wp_reset_postdata(); // Сбрасываем $post?>
             </div>
             <div class="row">
               <div class="col-lg-12">
@@ -103,7 +96,7 @@ if (is_date()) {
             </div>
           </div>
           <!-- Start Blog Post Siddebar -->
-            <?php get_sidebar()?>
+          <?php get_sidebar()?>
           <!-- End Blog Post Siddebar -->
         </div>
       </div>

@@ -1,14 +1,5 @@
 <div class="col-lg-8">
-  <?php global $post;
-
-  $query = new WP_Query([
-    'post_type' => 'post',
-    'posts_per_page' => 5,
-  ]);
-
-  if ($query->have_posts() ) {
-    while ($query->have_posts()) {
-      $query->the_post();?>
+  <?php if ( have_posts() ){ while ( have_posts() ){ the_post(); ?>
   <div class="single-recent-blog-post">
     <div class="thumb">
       <?php if( has_post_thumbnail() ) {

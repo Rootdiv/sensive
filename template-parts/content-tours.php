@@ -49,7 +49,8 @@
   wp_reset_postdata(); // Сбрасываем $post?>
   <div class="row">
     <div class="col-lg-12">
-      <?php the_posts_pagination(array(
+      <?php wp_pagenavi();
+        /*the_posts_pagination(array(
           'prev_text' => '<li class="page-item page-link">
             <span aria-hidden="true">
               <i class="ti-angle-left"></i>
@@ -62,7 +63,7 @@
         </li>',
       'before_page_number' => '<li class="page-item page-link">',
       'after_page_number'  => '</li>'
-      ));?>
+      ));*/?>
     </div>
   </div>
 </div>

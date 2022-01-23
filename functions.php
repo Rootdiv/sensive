@@ -746,7 +746,7 @@ function tour_custom_init() {
 		'rewrite'            => true,
 		'capability_type'    => 'post',
     'menu_icon'          => 'dashicons-admin-site',
-		'has_archive'        => true,
+		'has_archive'        => 'tours',
 		'hierarchical'       => false,
 		'menu_position'      => 5,
 		'supports'           => array('title','editor','author','thumbnail','excerpt', 'comments')
