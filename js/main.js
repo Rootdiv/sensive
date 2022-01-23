@@ -73,4 +73,8 @@ jQuery(function($) {
     $('#mc_embed_signup').find('form').ajaxChimp();
   }
   mailChimp();
+
+  if ($('.blocks-gallery-item').length) {
+    $('.blocks-gallery-item a').attr('target', '_blank');
+  }
 });
