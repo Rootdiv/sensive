@@ -40,7 +40,7 @@ if (is_date()) {
               <?php global $post;
 
               $query = new WP_Query([
-                'posts_per_page' => 5,
+                'post_status' => 'publish'
               ]);
 
               if ($query->have_posts() ) {
@@ -60,7 +60,12 @@ if (is_date()) {
                             <i class="ti-user"></i><?php the_author();?>
                           </a>
                         </li>
-                        <li><a href="#"><i class="ti-themify-favicon"></i>2 Comments</a></li>
+                        <li>
+                          <a href="<?php comments_link();?>">
+                            <i class="ti-themify-favicon"></i>
+                            <?php plural_form(get_comments_number(), array('Комментарий', 'Комментария', 'Комментариев'));?>
+                          </a>
+                        </li>
                       </ul>
                     </div>
                     <div class="details mt-20">
