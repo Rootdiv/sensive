@@ -80,7 +80,7 @@ add_filter('navigation_markup_template', 'my_navigation_template', 10, 2);
 
 //Функция для изменения email адреса
 function devise_sender_email($original_email_address) {
-  return 'info@maindiv.ru';
+  return 'sensive@rootdiv.ru';
 }
 
 //Цепляем наши функции на фильтры WordPress
