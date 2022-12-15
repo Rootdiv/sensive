@@ -88,7 +88,7 @@ add_filter('wp_mail_from', 'devise_sender_email');
 
 function my_phpmailer_config($phpmailer) {
 	$phpmailer->isSMTP();
-	$phpmailer->Host = 'smtp.yandex.ru';
+	$phpmailer->Host = 'smtp.mail.ru';
 	$phpmailer->SMTPAuth = true;
 	$phpmailer->Port = 465;
 	require_once 'mail_config.php';
